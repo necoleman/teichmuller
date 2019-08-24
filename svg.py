@@ -5,11 +5,12 @@ is to construct a scene, add objects to it, and then write it to a file
 to display it. '''
 
 class Scene:
-    def __init__(self,name="svg",height=400,width=400):
+    def __init__(self,name="svg",height=400,width=400,namespace="http://www.w3.org/2000/svg"):
         self.name = name
         self.items = []
         self.height = height
         self.width = width
+        self.namespace = namespace
     
     def add(self,item):
         self.items.append(item)
@@ -19,7 +20,7 @@ class Scene:
     
     def strarray(self):
         var = ["<?xml version=\"1.0\"?>\n",
-               "<svg height=\"%d\" width=\"%d\" >\n" % (self.height,self.width),
+               "<svg xmlns=\"%s\" height=\"%d\" width=\"%d\" >\n" % (self.namespace, self.height, self.width),
                " <g style=\"fill-opacity:1.0; stroke:black;\n",
                "  stroke-width:1;\">\n"] + \
                [item.strarray() for item in self.items] + \
